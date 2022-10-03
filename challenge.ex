@@ -1,24 +1,22 @@
 defmodule Challenge do
 
-  def findFrecuencyR(stringA, stringB,upLimit, lowLimit, frecuency) do
-
-    if upLimit<String.length(stringA) do
-      subString = String.slice(stringA, lowLimit..upLimit)
-      if  subString == stringB do
-        findFrecuencyR(stringA, stringB,upLimit+1, lowLimit+1, frecuency+1)
-      else
-        findFrecuencyR(stringA, stringB,upLimit+1, lowLimit+1, frecuency)
-      end
-
+  def findFrequencyR(stringA, stringB,upLimit, lowLimit, frequency, length) when upLimit < length do
+    subString = String.slice(stringA, lowLimit..upLimit)
+    if  subString == stringB do
+      findFrequencyR(stringA, stringB,upLimit+1, lowLimit+1, frequency+1, length)
     else
-      IO.puts "Frecuency: " <> to_string(frecuency)
+      findFrequencyR(stringA, stringB,upLimit+1, lowLimit+1, frequency, length)
     end
   end
 
-  def findFrecuency(stringA, stringB) do
+  def findFrequencyR(_stringA, _stringB,upLimit, _lowLimit, frequency, length) when upLimit >= length do
+    IO.puts "Frequency: " <> to_string(frequency)
+  end
+
+  def findFrequency(stringA, stringB) do
     upLimit = String.length(stringB)-1
     lowLimit = 0
-    findFrecuencyR(stringA, stringB, upLimit, lowLimit, 0)
+    findFrequencyR(stringA, stringB, upLimit, lowLimit, 0, String.length(stringA))
   end
 
 
@@ -26,4 +24,4 @@ end
 
 stringA = "aaaaaa";
 stringB = "aa";
-Challenge.findFrecuency(stringA, stringB)
+Challenge.findFrequency(stringA, stringB)
